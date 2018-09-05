@@ -1,0 +1,6 @@
+git.blueboard.io/blueboard/lib/cldr v0.0.0-20180905142540-7ad9ea0e139e h1:IqWwPbu1BKYEKi5rFCQqBjRn7fdiG0KzpbTMaJoDoYc=
+git.blueboard.io/blueboard/lib/cldr v0.0.0-20180905142540-7ad9ea0e139e/go.mod h1:PkQgENDaew5igqHllXbtu/iZdaD6ZMRczd3GRpGshpg=
+github.com/dolmen-go/codegen v1.0.0 h1:B/U0E1Cf5KekYF7Cx+M+CVi+Kk5juyGetb5QcXWZSgw=
+github.com/dolmen-go/codegen v1.0.0/go.mod h1:hw2TU7hTAA0vaJ1Cow+oSW9ClG+4uBGn6zPXIXsYW5c=
+golang.org/x/text v0.3.0 h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

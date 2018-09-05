@@ -1,0 +1,129 @@
+/*
+Copyright (c) 2018 BlueBoard SAS.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+package country
+
+import (
+	"database/sql/driver"
+	"errors"
+	"fmt"
+)
+
+var ErrInvalidCountryCode = errors.New("invalid country code")
+
+// Code represents an ISO 3166 country code: 2 ASCII letters, uppercase.
+// See https://www.iso.org/fr/iso-3166-country-codes.html.
+type Code string
+
+// String implements fmt.Stringer.
+func (cc Code) String() string {
+	return string(cc)
+}
+
+// IsValid returns true if cc is a known country code.
+// See Countries.
+func (cc Code) IsValid() bool {
+	if len(cc) != 2 {
+		return false
+	}
+	_, found := Countries[cc]
+	return found
+}
+
+// Set implements flag.Value.
+func (cc *Code) Set(src string) error {
+	if !Code(src).IsValid() {
+		return ErrInvalidCountryCode
+	}
+	*cc = Code(src)
+	return nil
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (cc Code) MarshalText() ([]byte, error) {
+	return []byte(cc), nil
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (cc *Code) UnmarshalText(src []byte) error {
+	return cc.Set(string(src))
+}
+
+// Value implements database/sql/driver.Valuer.
+func (cc Code) Value() (driver.Value, error) {
+	if len(cc) == 0 {
+		return nil, nil
+	}
+	return string(cc), nil
+}
+
+// Scan implements database/sql.Scanner.
+func (cc *Code) Scan(src interface{}) error {
+	switch src := src.(type) {
+	case nil:
+		*cc = ""
+	case []byte:
+		*cc = Code(src)
+	case string:
+		*cc = Code(src)
+	default:
+		return fmt.Errorf("unexpected value of type %T for %T", src, *cc)
+	}
+	return nil
+}
+
+// Emoji converts "FR" to "🇫🇷".
+func (cc Code) Emoji() string {
+	buf := [...]byte{240, 159, 135, 0, 240, 159, 135, 0}
+	buf[3] = cc[0] + (166 - 'A')
+	buf[7] = cc[1] + (166 - 'A')
+	return string(buf[:])
+}
+
+// Emoji wraps a country Code that have an external representation as a flag emoji.
+//     "FR" => "🇫🇷"
+type Emoji struct {
+	Code
+}
+
+// String implements fmt.Stringer.
+func (cc Emoji) String() string {
+	return cc.Code.Emoji()
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (cc Emoji) MarshalText() ([]byte, error) {
+	buf := [...]byte{240, 159, 135, 0, 240, 159, 135, 0}
+	buf[3] = cc.Code[0] + (166 - 'A')
+	buf[7] = cc.Code[1] + (166 - 'A')
+	return buf[:], nil
+}
+
+// UnmarshalText DOESN'T implement encoding.TextUnmarshaler.
+func (cc Emoji) UnmarshalText([]byte) error {
+	return errors.New("Emoji.UnmarshalText not implemented")
+}
+
+// Set DOESN'T implement flag.Value.
+func (cc Emoji) Set(string) error {
+	return errors.New("Emoji.Set not implemented")
+}
