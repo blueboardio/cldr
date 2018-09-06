@@ -21,7 +21,6 @@ Data (country names, currencies per country) comes from the [Unicode Common Loca
 ## Status
 
 This is business code used in production at [BlueBoard.io](https://blueboard.io).
-Features will be added to the existing packages only if they are useful to our business. General use, completeness and bloat are not our aim.
 
 ## License
 
