@@ -4,14 +4,19 @@
 [![Travis-CI](https://api.travis-ci.org/blueboardio/cldr.svg?branch=master)](https://travis-ci.org/dolmen-go/jsonptr)
 [![Go Report Card](https://goreportcard.com/badge/github.com/blueboardio/cldr)](https://goreportcard.com/report/github.com/blueboardio/cldr)
 
+Author: [@dolmen](https://github.com/dolmen)  (Olivier Mengué).
+
 ## Packages
 
 * [github.com/blueboardio/cldr/country](https://godoc.org/github.com/blueboardio/cldr/country)
 * [github.com/blueboardio/cldr/currency](https://godoc.org/github.com/blueboardio/cldr/currency)
 
-Each package exposes a string-based type called `code` (`country.Code`, `currency.Code`) corresponding to an ISO code and which is the entrypoint of the API.
+Each package exposes a string-based type called `Code` (`country.Code`, `currency.Code`) corresponding to an ISO code and which is the entrypoint of the API. Those types implement interfaces used for input and output from/to
+command line flags ([flag.Value](https://golang.org/pkg/flag/#Value)) and SQL databases
+([sql.Scanner](https://golang.org/pkg/database/sql/#Scanner), [driver.Valuer](https://golang.org/pkg/database/sql/driver/#Valuer)).
 
-Data comes from the [Unicode Common Locale Data Repository](http://cldr.unicode.org/index). Code generators are bundled to update the data from the latest CLDR release.
+
+Data (country names, currencies per country) comes from the [Unicode Common Locale Data Repository](http://cldr.unicode.org/index). Code generators are bundled to update the data from the latest CLDR release.
 
 ## Status
 
@@ -20,7 +25,7 @@ Features will be added to the existing packages only if they are useful to our b
 
 ## License
 
-Copyright (c) 2018 BlueBoard SAS.
+Copyright © 2018 BlueBoard SAS.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
