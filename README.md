@@ -12,6 +12,7 @@ Author: [@dolmen](https://github.com/dolmen)  (Olivier Mengué).
 * [github.com/blueboardio/cldr/currency](https://godoc.org/github.com/blueboardio/cldr/currency)
 
 Each package exposes a string-based type called `Code` (`country.Code`, `currency.Code`) corresponding to an ISO code and which is the entrypoint of the API. Those types implement interfaces used for input and output from/to
+JSON ([json.Marshaler](https://golang.org/pkg/encoding/json/#Marshaler), [json.Unmarshaler](https://golang.org/pkg/encoding/json/#Unmarshaler)),
 command line flags ([flag.Value](https://golang.org/pkg/flag/#Value)) and SQL databases
 ([sql.Scanner](https://golang.org/pkg/database/sql/#Scanner), [driver.Valuer](https://golang.org/pkg/database/sql/driver/#Valuer)).
 
