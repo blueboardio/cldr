@@ -20,4 +20,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+// Package country provides a data type for ISO-3166, and a list of countries from Unicode CLDR.
 package country

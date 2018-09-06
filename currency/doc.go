@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-// Package currency provides basic support for ISO 4217 currency codes.
+// Package currency provides a data type for ISO 4217 currency code and list of world currencies from Unicode CLDR.
 //
 // See https://www.iso.org/fr/iso-4217-currency-codes.html.
 // See https://www.unicode.org/reports/tr35/tr35-numbers.html#Currencies.
