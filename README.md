@@ -1,7 +1,7 @@
 # cldr - Unicode CLDR data exposed as Go packages
 
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/blueboardio/cldr)
-[![Travis-CI](https://api.travis-ci.org/blueboardio/cldr.svg?branch=master)](https://travis-ci.org/dolmen-go/jsonptr)
+[![Travis-CI](https://api.travis-ci.org/blueboardio/cldr.svg?branch=master)](https://travis-ci.org/blueboardio/cldr)
 [![Go Report Card](https://goreportcard.com/badge/github.com/blueboardio/cldr)](https://goreportcard.com/report/github.com/blueboardio/cldr)
 
 Author: [@dolmen](https://github.com/dolmen)  (Olivier Mengué).
