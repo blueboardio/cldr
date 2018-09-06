@@ -31,6 +31,7 @@ import (
 	"github.com/blueboardio/cldr/currency"
 )
 
+// Set represents a set of country codes.
 type Set []Code
 
 var ErrInvalidSet = errors.New("invalid countries set")
