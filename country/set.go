@@ -182,8 +182,16 @@ func (cs *Set) Scan(src interface{}) error {
 		*cs = nil
 		return nil
 	case []byte:
+		if len(src) == 0 {
+			*cs = nil
+			return nil
+		}
 		b = src
 	case string:
+		if len(src) == 0 {
+			*cs = nil
+			return nil
+		}
 		b = []byte(src)
 	default:
 		return fmt.Errorf("invalid type %T for type %T", src, *cs)
