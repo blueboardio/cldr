@@ -71,6 +71,12 @@ func TestCode(t *testing.T) {
 			t.Errorf("%s is a reserved code. IsValid() should return false.", code)
 		}
 	}
+
+	for code := range country.Countries {
+		if !code.IsValid() {
+			t.Errorf("%s is a known code. IsValid() should return true.", code)
+		}
+	}
 }
 
 func TestEmoji(t *testing.T) {
