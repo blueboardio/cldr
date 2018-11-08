@@ -1,1 +1,3 @@
 cldr-common-*.zip
+.cover.out
+coverage.txt
