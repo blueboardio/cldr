@@ -25,6 +25,7 @@ package country_test
 import (
 	"database/sql"
 	"database/sql/driver"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"testing"
@@ -77,4 +78,20 @@ func TestCode(t *testing.T) {
 			t.Errorf("%s is a known code. IsValid() should return true.", code)
 		}
 	}
+}
+
+func TestEmojiJSON(t *testing.T) {
+	var s struct {
+		Country country.Emoji `json:"country"`
+	}
+	s.Country.Code = "FR"
+
+	b, err := json.Marshal(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(b) != `{"country":"🇫🇷"}` {
+		t.Fatalf("JSON marshaling failure: %s", b)
+	}
+	t.Logf("%s", b)
 }
