@@ -118,12 +118,12 @@ func (cc Emoji) MarshalText() ([]byte, error) {
 	return buf[:], nil
 }
 
-// UnmarshalText DOESN'T implement encoding.TextUnmarshaler.
+// UnmarshalText forbids the use of Emoji as an encoding.TextUnmarshaler.
 func (cc Emoji) UnmarshalText([]byte) error {
 	return errors.New("Emoji.UnmarshalText not implemented")
 }
 
-// Set DOESN'T implement flag.Value.
+// Set forbids the use of Emoji as a flag.Value.
 func (cc Emoji) Set(string) error {
 	return errors.New("Emoji.Set not implemented")
 }
