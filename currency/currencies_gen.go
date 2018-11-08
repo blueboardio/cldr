@@ -50,6 +50,11 @@ var ActiveCurrencies = map[Code]*Info{
 	{{printf "%q: {Code: %q, Fraction: FractionInfo{Digits: %d, Rounding: %d, CashDigits: %d, CashRounding: %d}, Countries: %#v}" .Code .Code .Digits .Rounding .CashDigits .CashRounding .Countries }},
 {{end}}
 }
+
+const (
+	// Maximum cash fraction digits of any ActiveCurrencies
+	MaxFractionCashDigits = {{.maxFractionCashDigits}}
+)
 `
 
 func atou(s string, defaul uint) uint {
@@ -137,6 +142,7 @@ func main() {
 		}
 	}
 
+	var maxFractionCashDigits uint
 	for _, c := range currencies {
 		if len(c.Countries) == 0 {
 			log.Printf("Removing %s: no countries", c.Code)
@@ -144,18 +150,24 @@ func main() {
 			continue
 		}
 		sort.Strings(c.Countries)
+
+		if c.CashDigits > maxFractionCashDigits {
+			maxFractionCashDigits = c.CashDigits
+		}
 	}
 
 	fmt.Println(len(currencies), "currencies.")
 
 	codegen.MustParse(template).Template.Execute(os.Stdout, map[string]interface{}{
-		"file":       filepath.Base(cldrArchivePath),
-		"currencies": currencies,
+		"file":                  filepath.Base(cldrArchivePath),
+		"currencies":            currencies,
+		"maxFractionCashDigits": maxFractionCashDigits,
 	})
 
 	err = codegen.MustParse(template).CreateFile("currencies.go", map[string]interface{}{
-		"file":       filepath.Base(cldrArchivePath),
-		"currencies": currencies,
+		"file":                  filepath.Base(cldrArchivePath),
+		"currencies":            currencies,
+		"maxFractionCashDigits": maxFractionCashDigits,
 	})
 	if err != nil {
 		log.Fatal(err)

@@ -163,3 +163,8 @@ var ActiveCurrencies = map[Code]*Info{
 	"ZAR": {Code: "ZAR", Fraction: FractionInfo{Digits: 2, Rounding: 0, CashDigits: 2, CashRounding: 0}, Countries: []string{"LS", "NA", "ZA"}},
 	"ZMW": {Code: "ZMW", Fraction: FractionInfo{Digits: 2, Rounding: 0, CashDigits: 2, CashRounding: 0}, Countries: []string{"ZM"}},
 }
+
+const (
+	// Maximum cash fraction digits of any ActiveCurrencies
+	MaxFractionCashDigits = 3
+)
