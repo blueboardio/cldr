@@ -3,6 +3,7 @@
 package country_test
 
 import (
+	"fmt"
 	"testing"
 	"unicode"
 	"unicode/utf8"
@@ -12,7 +13,10 @@ import (
 
 func TestEmoji(t *testing.T) {
 	for code, info := range country.Countries {
-		emoji := country.Code(code).Emoji()
+		emoji := code.Emoji()
+		if fmt.Sprint(country.Emoji{code}) != emoji {
+			t.Errorf("%s: country.Emoji.String failure", code)
+		}
 		t.Log(country.Code(code), emoji, info.Name)
 		if len(emoji) != 8 {
 			t.Errorf("%s: incorrect length %d", code, len(emoji))
