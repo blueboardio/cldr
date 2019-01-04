@@ -35,13 +35,15 @@ var ErrInvalidCurrencyCode = errors.New("invalid currency code")
 type Code string
 
 // IsValid returns false if the code is invalid.
-//
-// Only basic format check is done for now.
 func (cc Code) IsValid() bool {
-	return len(cc) == 3 &&
-		cc[0] >= 'A' && cc[0] <= 'Z' &&
-		cc[1] >= 'A' && cc[1] <= 'Z' &&
-		cc[2] >= 'A' && cc[2] <= 'Z'
+	/*
+		return len(cc) == 3 &&
+			cc[0] >= 'A' && cc[0] <= 'Z' &&
+			cc[1] >= 'A' && cc[1] <= 'Z' &&
+			cc[2] >= 'A' && cc[2] <= 'Z'
+	*/
+	_, ok := ActiveCurrencies[cc]
+	return ok
 }
 
 // String implements fmt.Stringer.
