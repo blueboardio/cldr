@@ -40,10 +40,6 @@ type Set []Code
 
 var ErrInvalidSet = errors.New("invalid countries set")
 
-func (cs Set) IsValid() bool {
-	return len(cs) > 0
-}
-
 // Len implements sort.Interface.
 func (cs Set) Len() int {
 	return len(cs)
