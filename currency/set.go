@@ -303,7 +303,7 @@ Next:
 // HasDuplicates checks if cs contains duplicates.
 func (cs Set) HasDuplicates() bool {
 	l := len(cs)
-	if l == 0 {
+	if l <= 1 {
 		return false
 	}
 	for i := 1; i < l; i++ {
