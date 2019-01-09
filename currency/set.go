@@ -235,6 +235,13 @@ func (cs Set) Matches(c Code) bool {
 	return cs.Contains(c)
 }
 
+// Add appends c if not already contained in the set.
+func (cs *Set) Add(c Code) {
+	if !cs.Contains(c) {
+		*cs = append(*cs, c)
+	}
+}
+
 // Remove removes from cs the intersection of the two sets.
 // If exclude is empty nothing is removed.
 // Order is preserved.
