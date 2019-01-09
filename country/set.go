@@ -38,6 +38,11 @@ import (
 // The string representation (.String) is the text representation but with "*" if the set is empty.
 type Set []Code
 
+// Any returns a Set where .MatchesAny() == true
+func Any() Set {
+	return nil
+}
+
 var ErrInvalidSet = errors.New("invalid countries set")
 
 // Len implements sort.Interface.
