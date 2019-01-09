@@ -32,6 +32,10 @@ import (
 )
 
 // Set represents a set of country codes.
+//
+// The JSON representation (MarshalJSON) is an array of strings.
+// The text representation (MarshalText) is codes separated by comma.
+// The string representation (.String) is the text representation but with "*" if the set is empty.
 type Set []Code
 
 var ErrInvalidSet = errors.New("invalid countries set")
