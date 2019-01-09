@@ -326,7 +326,7 @@ func (cs *Set) RemoveDuplicates() {
 }
 
 // Currencies returns the set of currencies of the countries set.
-func (cs Set) Currencies() []currency.Code {
+func (cs Set) Currencies() currency.Set {
 	if cs == nil {
 		return nil // any currencies
 	}
@@ -336,7 +336,7 @@ func (cs Set) Currencies() []currency.Code {
 			cur[cu] = struct{}{}
 		}
 	}
-	currencies := make([]currency.Code, 0, len(cur))
+	currencies := make(currency.Set, 0, len(cur))
 	for cu := range cur {
 		currencies = append(currencies, cu)
 	}
