@@ -41,6 +41,14 @@ func Any() Set {
 	return nil
 }
 
+// Copy returns an independent copy.
+func (cs Set) Copy() Set {
+	if cs == nil {
+		return nil
+	}
+	return append(Set(nil), cs...)
+}
+
 var ErrInvalidSet = errors.New("invalid currencies set")
 
 // Len implements sort.Interface.
