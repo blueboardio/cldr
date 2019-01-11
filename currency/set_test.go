@@ -67,10 +67,14 @@ func TestSetRemove(t *testing.T) {
 	}{
 		{orig: "", remove: "", expected: ""},
 		{orig: "", remove: "", expected: ""},
-		{orig: "", remove: "EUR", expected: ""},
-		{orig: "", remove: "EUR", expected: ""},
+		{orig: "*", remove: "*", expected: ""},
+		{orig: "*", remove: "", expected: "*"},
+		// {orig: "*", remove: "FR", expected: ""}, // undefined behaviour
+		{orig: "EUR", remove: "GBP", expected: "EUR"},
+		{orig: "EUR", remove: "", expected: "EUR"},
+		{orig: "EUR", remove: "EUR", expected: ""},
 		{orig: "EUR,GBP", remove: "", expected: "EUR,GBP"},
-		{orig: "EUR,GBP", remove: "", expected: "EUR,GBP"},
+		{orig: "EUR,GBP", remove: "*", expected: ""},
 		{orig: "EUR,GBP", remove: "EUR", expected: "GBP"},
 		{orig: "EUR,GBP", remove: "GBP", expected: "EUR"},
 		{orig: "EUR,GBP,USD", remove: "GBP", expected: "EUR,USD"},
@@ -94,15 +98,20 @@ func TestSetFilter(t *testing.T) {
 		filter   string
 		filtered string // Result of orig.Filter(remove)
 	}{
+		{orig: "", filter: "", filtered: ""},
+		{orig: "", filter: "*", filtered: ""},
+		{orig: "", filter: "EUR", filtered: ""},
+		{orig: "*", filter: "", filtered: ""},
 		{orig: "*", filter: "*", filtered: "*"},
-		{orig: "*", filter: "*", filtered: "*"},
-		{orig: "*", filter: "EUR", filtered: "*"},
-		{orig: "*", filter: "EUR", filtered: "*"},
-		{orig: "EUR,GBP", filter: "", filtered: "EUR,GBP"},
-		{orig: "EUR,GBP", filter: "", filtered: "EUR,GBP"},
+		{orig: "*", filter: "EUR", filtered: "EUR"},
+		{orig: "EUR", filter: "", filtered: ""},
+		{orig: "EUR", filter: "*", filtered: "EUR"},
+		{orig: "EUR", filter: "EUR", filtered: "EUR"},
+		{orig: "EUR,GBP", filter: "", filtered: ""},
+		{orig: "EUR,GBP", filter: "*", filtered: "EUR,GBP"},
 		{orig: "EUR,GBP", filter: "EUR", filtered: "EUR"},
 		{orig: "EUR,GBP", filter: "GBP", filtered: "GBP"},
-		{orig: "EUR,GBP,USD", filter: "", filtered: "EUR,GBP,USD"},
+		{orig: "EUR,GBP,USD", filter: "", filtered: ""},
 		{orig: "EUR,GBP,USD", filter: "GBP", filtered: "GBP"},
 		{orig: "EUR,GBP,USD", filter: "EUR,GBP", filtered: "EUR,GBP"},
 		{orig: "EUR,GBP,USD", filter: "EUR,USD", filtered: "EUR,USD"},
@@ -126,6 +135,7 @@ func TestSetRemoveDuplicates(t *testing.T) {
 		expected string
 	}{
 		{orig: "", expected: ""},
+		{orig: "*", expected: "*"},
 		{orig: "EUR", expected: "EUR"},
 		{orig: "EUR,EUR", expected: "EUR"},
 		{orig: "EUR,GBP", expected: "EUR,GBP"},

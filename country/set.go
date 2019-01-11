@@ -32,8 +32,9 @@ import (
 )
 
 // Set represents a set of country codes.
+// A set can be used to match a country code against the set. The zero value (nil) matches any country.
 //
-// The JSON representation (MarshalJSON) is an array of strings.
+// The JSON representation (MarshalJSON) is an array of strings or null.
 // The text representation (MarshalText) is codes separated by comma.
 // The string representation (.String) is the text representation but with "*" if the set is empty.
 type Set []Code
@@ -103,7 +104,7 @@ func (cs Set) MarshalText() ([]byte, error) {
 func (cs *Set) UnmarshalText(b []byte) error {
 	switch len(b) {
 	case 0:
-		*cs = nil
+		*cs = Set{}
 		return nil
 	case 1:
 		if b[0] == '*' {
@@ -196,13 +197,13 @@ func (cs *Set) Scan(src interface{}) error {
 		return nil
 	case []byte:
 		if len(src) == 0 {
-			*cs = nil
+			*cs = Set{}
 			return nil
 		}
 		b = src
 	case string:
 		if len(src) == 0 {
-			*cs = nil
+			*cs = Set{}
 			return nil
 		}
 		b = []byte(src)
@@ -231,7 +232,7 @@ func (cs Set) Contains(c Code) bool {
 
 // MatchesAny returns true if the set is empty.
 func (cs Set) MatchesAny() bool {
-	return len(cs) == 0
+	return cs == nil
 }
 
 // Matches returns true if the set is empty (matches anything) or contains c.
@@ -246,16 +247,25 @@ func (cs Set) Matches(c Code) bool {
 
 // Add appends c if not already contained in the set.
 func (cs *Set) Add(c Code) {
-	if !cs.Contains(c) {
-		*cs = append(*cs, c)
+	if cs.Matches(c) {
+		return
 	}
+	*cs = append(*cs, c)
 }
 
 // Remove removes from cs the intersection of the two sets.
 // If exclude is empty nothing is removed.
 // Order is preserved.
 func (cs *Set) Remove(exclude Set) {
-	if len(*cs) == 0 || len(exclude) == 0 {
+	if exclude.MatchesAny() {
+		if cs.MatchesAny() {
+			*cs = Set{}
+		} else {
+			*cs = (*cs)[:0]
+		}
+		return
+	}
+	if len(exclude) == 0 {
 		return
 	}
 	s := *cs
@@ -269,9 +279,7 @@ func (cs *Set) Remove(exclude Set) {
 			}
 		}
 	}
-	if removed == len(s) {
-		*cs = nil
-	} else if removed > 0 {
+	if removed > 0 {
 		*cs = s[:len(s)-removed]
 	}
 }
@@ -279,10 +287,22 @@ func (cs *Set) Remove(exclude Set) {
 // Filter removes countries that are not Matched by filter.
 //
 // The filter is assumed to not contain duplicates.
-// An empty filter is a no-op (matches anything).
+// An nil filter is a no-op (matches anything).
 // Order is preserved.
 func (cs *Set) Filter(filter Set) {
-	if cs.MatchesAny() || filter.MatchesAny() {
+	if filter.MatchesAny() {
+		return
+	}
+	if len(filter) == 0 {
+		if *cs == nil {
+			*cs = Set{}
+		} else {
+			*cs = (*cs)[:0]
+		}
+		return
+	}
+	if cs.MatchesAny() {
+		*cs = filter.Copy()
 		return
 	}
 	s := *cs
@@ -302,9 +322,7 @@ Next:
 		}
 		removed++
 	}
-	if removed == len(s) {
-		*cs = nil
-	} else if removed > 0 {
+	if removed > 0 {
 		*cs = s[:len(s)-removed]
 	}
 }
@@ -347,8 +365,8 @@ func (cs *Set) RemoveDuplicates() {
 
 // Currencies returns the set of currencies of the countries set.
 func (cs Set) Currencies() currency.Set {
-	if cs == nil {
-		return nil // any currencies
+	if cs.MatchesAny() {
+		return currency.Any() // any currencies
 	}
 	cur := make(map[currency.Code]struct{}, len(cs))
 	for _, c := range cs {
