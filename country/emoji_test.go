@@ -8,7 +8,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/blueboardio/cldr/country"
+	"github.com/blueboardio/cldr/v2/country"
 )
 
 func TestEmoji(t *testing.T) {

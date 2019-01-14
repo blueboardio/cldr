@@ -3,7 +3,7 @@ package currency_test
 import (
 	"testing"
 
-	"github.com/blueboardio/cldr/currency"
+	"github.com/blueboardio/cldr/v2/currency"
 )
 
 func TestCode(t *testing.T) {

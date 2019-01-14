@@ -33,7 +33,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/blueboardio/cldr/currency"
+	"github.com/blueboardio/cldr/v2/currency"
 )
 
 var _ interface {

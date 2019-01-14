@@ -30,7 +30,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/blueboardio/cldr/country"
+	"github.com/blueboardio/cldr/v2/country"
 )
 
 var _ interface {

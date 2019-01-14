@@ -3,7 +3,7 @@ package country_test
 import (
 	"fmt"
 
-	"github.com/blueboardio/cldr/country"
+	"github.com/blueboardio/cldr/v2/country"
 )
 
 func Example() {

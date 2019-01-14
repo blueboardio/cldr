@@ -1,4 +1,4 @@
-module github.com/blueboardio/cldr
+module github.com/blueboardio/cldr/v2
 
 require (
 	github.com/dolmen-go/codegen v1.0.0 // indirect

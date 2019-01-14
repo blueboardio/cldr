@@ -2,7 +2,7 @@
 
 package country
 
-import "github.com/blueboardio/cldr/currency"
+import "github.com/blueboardio/cldr/v2/currency"
 
 type Info struct {
 	Code       Code

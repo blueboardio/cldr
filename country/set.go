@@ -28,7 +28,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/blueboardio/cldr/currency"
+	"github.com/blueboardio/cldr/v2/currency"
 )
 
 // Set represents a set of country codes.
