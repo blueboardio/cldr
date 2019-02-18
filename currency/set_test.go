@@ -59,6 +59,36 @@ func parseSet(str string) (cs currency.Set) {
 	return
 }
 
+func TestSetJSON(t *testing.T) {
+	for _, test := range []struct {
+		set      currency.Set
+		expected string
+	}{
+		{nil, `null`},
+		{currency.Set{}, `[]`},
+		{currency.Set{"EUR"}, `["EUR"]`},
+		{currency.Set{"EUR", "USD"}, `["EUR","USD"]`},
+		{currency.Set{"EUR", "KWD", "USD"}, `["EUR","KWD","USD"]`},
+	} {
+		t.Log(test.expected)
+		b, err := json.Marshal(test.set)
+		if err != nil {
+			t.Fatalf("%v: %v", test.expected, err)
+		}
+		if string(b) != test.expected {
+			t.Fatalf("%v: %s", test.expected, b)
+		}
+		var out currency.Set
+		err = json.Unmarshal(b, &out)
+		if err != nil {
+			t.Fatalf("%s: %v", test.expected, err)
+		}
+		if !reflect.DeepEqual(out, test.set) {
+			t.Fatalf("%s: mismatch with original value after serialization", test.expected)
+		}
+	}
+}
+
 func TestSetRemove(t *testing.T) {
 	for _, test := range []struct {
 		orig     string

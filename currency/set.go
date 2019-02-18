@@ -143,6 +143,9 @@ func (cs Set) MarshalJSON() ([]byte, error) {
 	if cs == nil {
 		return []byte("null"), nil
 	}
+	if len(cs) == 0 {
+		return []byte("[]"), nil
+	}
 	b := make([]byte, len(cs)*(1+3+1+1)-1+2)
 	b[0] = '['
 	p := 1
@@ -152,7 +155,7 @@ func (cs Set) MarshalJSON() ([]byte, error) {
 		b[p+2] = c[1]
 		b[p+3] = c[2]
 		b[p+4] = '"'
-		b[p+4] = ','
+		b[p+5] = ','
 		p += 6
 	}
 	b[len(b)-1] = ']' // Overwrite the last comma
