@@ -60,6 +60,36 @@ func parseSet(str string) (cs country.Set) {
 	return
 }
 
+func TestSetJSON(t *testing.T) {
+	for _, test := range []struct {
+		set      country.Set
+		expected string
+	}{
+		{nil, `null`},
+		{country.Set{}, `[]`},
+		{country.Set{"FR"}, `["FR"]`},
+		{country.Set{"FR", "US"}, `["FR","US"]`},
+		{country.Set{"DE", "FR", "IT"}, `["DE","FR","IT"]`},
+	} {
+		b, err := json.Marshal(test.set)
+		if err != nil {
+			t.Fatalf("%v: %v", test.expected, err)
+		}
+		if string(b) != test.expected {
+			t.Fatalf("%v: %s", test.expected, b)
+		}
+
+		var out country.Set
+		err = json.Unmarshal(b, &out)
+		if err != nil {
+			t.Fatalf("%s: %v", test.expected, err)
+		}
+		if !reflect.DeepEqual(out, test.set) {
+			t.Fatalf("%s: mismatch with original value after serialization", test.expected)
+		}
+	}
+}
+
 func TestSetRemove(t *testing.T) {
 	for _, test := range []struct {
 		orig     string

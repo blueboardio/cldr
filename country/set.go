@@ -146,6 +146,9 @@ func (cs Set) MarshalJSON() ([]byte, error) {
 	if cs == nil {
 		return []byte("null"), nil
 	}
+	if len(cs) == 0 {
+		return []byte("[]"), nil
+	}
 	b := make([]byte, len(cs)*(1+2+1+1)-1+2)
 	b[0] = '['
 	p := 1
