@@ -90,6 +90,23 @@ func TestSetJSON(t *testing.T) {
 	}
 }
 
+func TestSetScan(t *testing.T) {
+	for _, test := range []struct {
+		value    interface{}
+		expected country.Set
+	}{
+		{nil, nil},
+		{[]byte("FR"), country.Set{"FR"}},
+		{[]byte("FR,DE"), country.Set{"FR", "DE"}},
+	} {
+		var set country.Set
+		err := set.Scan(test.value)
+		if err != nil {
+			t.Errorf("%q: %v", test.value, err)
+		}
+	}
+}
+
 func TestSetRemove(t *testing.T) {
 	for _, test := range []struct {
 		orig     string
