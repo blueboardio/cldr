@@ -1,6 +1,6 @@
 # cldr - Unicode CLDR data exposed as Go packages
 
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/blueboardio/cldr)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/blueboardio/cldr/v2?tab=subdirectories)
 [![Travis-CI](https://api.travis-ci.org/blueboardio/cldr.svg?branch=master)](https://travis-ci.org/blueboardio/cldr)
 [![Go Report Card](https://goreportcard.com/badge/github.com/blueboardio/cldr)](https://goreportcard.com/report/github.com/blueboardio/cldr)
 
@@ -8,8 +8,8 @@ Author: [@dolmen](https://github.com/dolmen)  (Olivier Mengué).
 
 ## Packages
 
-* [github.com/blueboardio/cldr/country](https://godoc.org/github.com/blueboardio/cldr/country)
-* [github.com/blueboardio/cldr/currency](https://godoc.org/github.com/blueboardio/cldr/currency)
+* [github.com/blueboardio/cldr/v2/country](https://pkg.go.dev/github.com/blueboardio/cldr/v2/country?tab=doc)
+* [github.com/blueboardio/cldr/v2/currency](https://pkg.go.dev/github.com/blueboardio/cldr/v2/currency?tab=doc)
 
 Each package exposes a string-based type called `Code` (`country.Code`, `currency.Code`) corresponding to an ISO code and which is the entrypoint of the API. Those types implement interfaces used for input and output from/to
 JSON ([json.Marshaler](https://golang.org/pkg/encoding/json/#Marshaler), [json.Unmarshaler](https://golang.org/pkg/encoding/json/#Unmarshaler)),
