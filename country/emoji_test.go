@@ -11,6 +11,16 @@ import (
 	"github.com/blueboardio/cldr/v2/country"
 )
 
+func ExampleCode_Emoji() {
+	fmt.Println(country.Code("FR").Emoji())
+	// Output: 🇫🇷
+}
+
+func ExampleEmoji_String() {
+	fmt.Println(country.Emoji{"FR"}.Emoji())
+	// Output: 🇫🇷
+}
+
 func TestEmoji(t *testing.T) {
 	for code, info := range country.Countries {
 		emoji := code.Emoji()
