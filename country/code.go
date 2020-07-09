@@ -99,7 +99,7 @@ func (cc Code) Emoji() string {
 	return string(buf[:])
 }
 
-// Emoji wraps a country Code that have an external representation as a flag emoji.
+// Emoji wraps a country Code to have an external representation as a flag emoji.
 //     "FR" => "🇫🇷"
 type Emoji struct {
 	Code
