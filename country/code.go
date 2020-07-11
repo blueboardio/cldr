@@ -93,10 +93,10 @@ func (cc *Code) Scan(src interface{}) error {
 
 // Emoji converts "FR" to "🇫🇷".
 func (cc Code) Emoji() string {
-	buf := [...]byte{240, 159, 135, 0, 240, 159, 135, 0}
-	buf[3] = cc[0] + (166 - 'A')
-	buf[7] = cc[1] + (166 - 'A')
-	return string(buf[:])
+	return string([]byte{
+		240, 159, 135, cc[0] + (166 - 'A'),
+		240, 159, 135, cc[1] + (166 - 'A'),
+	})
 }
 
 // Emoji wraps a country Code to have an external representation as a flag emoji.

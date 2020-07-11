@@ -4,7 +4,9 @@ package country_test
 
 import (
 	"fmt"
+	"math/rand"
 	"testing"
+	"time"
 	"unicode"
 	"unicode/utf8"
 
@@ -42,4 +44,32 @@ func TestEmoji(t *testing.T) {
 			}
 		}
 	}
+}
+
+func emoji1(cc string) string {
+	buf := [...]byte{240, 159, 135, 0, 240, 159, 135, 0}
+	buf[7] = cc[1] + (166 - 'A')
+	buf[3] = cc[0] + (166 - 'A')
+	return string(buf[:])
+}
+
+func emoji2(cc string) string {
+	return string([]byte{
+		240, 159, 135, cc[0] + (166 - 'A'),
+		240, 159, 135, cc[1] + (166 - 'A'),
+	})
+}
+
+var sss string
+
+func BenchmarkEmoji(b *testing.B) {
+	rand.Seed(time.Now().UnixNano())
+	b.Run("emoji1", func(b *testing.B) {
+		cc := string([]byte{'A' + byte(rand.Intn(26)), 'A' + byte(rand.Intn(26))})
+		sss = emoji1(cc)
+	})
+	b.Run("emoji2", func(b *testing.B) {
+		cc := string([]byte{'A' + byte(rand.Intn(26)), 'A' + byte(rand.Intn(26))})
+		sss = emoji2(cc)
+	})
 }
