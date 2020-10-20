@@ -167,4 +167,6 @@ var ActiveCurrencies = map[Code]*Info{
 const (
 	// Maximum cash fraction digits of any ActiveCurrencies
 	MaxFractionCashDigits = 3
+	// Maximum cash divisor of any ActiveCurrencies (10^MaxFractionCashDigits)
+	MaxCashDivisor = 1000
 )

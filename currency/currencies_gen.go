@@ -54,6 +54,8 @@ var ActiveCurrencies = map[Code]*Info{
 const (
 	// Maximum cash fraction digits of any ActiveCurrencies
 	MaxFractionCashDigits = {{.maxFractionCashDigits}}
+	// Maximum cash divisor of any ActiveCurrencies (10^MaxFractionCashDigits)
+	MaxCashDivisor = {{.maxCashDivisor}}
 )
 `
 
@@ -156,19 +158,31 @@ func main() {
 		}
 	}
 
+	maxCashDivisor := func() (pow10 int64) {
+		n := maxFractionCashDigits
+		pow10 = 1
+		for n > 0 {
+			pow10 = pow10 * 10
+			n--
+		}
+		return
+	}()
+
 	fmt.Println(len(currencies), "currencies.")
 
-	codegen.MustParse(template).Template.Execute(os.Stdout, map[string]interface{}{
+	data := map[string]interface{}{
 		"file":                  filepath.Base(cldrArchivePath),
 		"currencies":            currencies,
 		"maxFractionCashDigits": maxFractionCashDigits,
-	})
+		"maxCashDivisor":        maxCashDivisor,
+	}
 
-	err = codegen.MustParse(template).CreateFile("currencies.go", map[string]interface{}{
-		"file":                  filepath.Base(cldrArchivePath),
-		"currencies":            currencies,
-		"maxFractionCashDigits": maxFractionCashDigits,
-	})
+	err = codegen.MustParse(template).Template.Execute(os.Stdout, data)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = codegen.MustParse(template).CreateFile("currencies.go", data)
 	if err != nil {
 		log.Fatal(err)
 	}
