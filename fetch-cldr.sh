@@ -9,14 +9,17 @@
 
 set -eou pipefail
 
-V=${1:-37}
+V="${1:-38.1}"
+V0="$V"
 
 if [[ "$V" != *.* ]]; then
-	V=$V.0
+	V0=$V.0
 fi
 
 major="$(expr "x$V" : 'x\([0-9]*\)')"
 
-f="cldr-common-$V.zip"
+f="cldr-common-$V0.zip"
+url="http://unicode.org/Public/cldr/$V/$f"
+echo "$url"
 
-curl -o "$f" "http://unicode.org/Public/cldr/$major/$f"
+curl -o "$f" "$url"
