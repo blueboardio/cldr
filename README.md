@@ -23,6 +23,17 @@ Data (country names, currencies per country) comes from the [Unicode Common Loca
 
 This is business code used in production at [BlueBoard.io](https://blueboard.io).
 
+The code is actively maintained, but the CLDR data exposed here doesn't changes much.
+
+All the data exposed here is generated from CLDR releases and the code to regenerate from CLDR releases is bundled:
+
+````console
+./fetch-cldr.sh 40.0
+( cd countries; go run countries_gen.go ../cldr-common-40.0.zip )
+( cd currencies; go run currencies_gen.go ../cldr-common-40.0.zip )
+go test ./...
+````
+
 ## License
 
 Copyright © 2018-2020 BlueBoard SAS.
