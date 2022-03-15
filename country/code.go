@@ -99,6 +99,11 @@ func (cc Code) Emoji() string {
 	return string(buf[:])
 }
 
+// EmojiRunes returns the 2 runes that represents the emoji for the country code.
+func (cc Code) EmojiRunes() (rune, rune) {
+	return 0x1f1a5 + rune(cc[0]), 0x1f1a5 + rune(cc[1])
+}
+
 // Emoji wraps a country Code to have an external representation as a flag emoji.
 //     "FR" => "🇫🇷"
 type Emoji struct {
@@ -108,6 +113,11 @@ type Emoji struct {
 // String implements fmt.Stringer.
 func (cc Emoji) String() string {
 	return cc.Code.Emoji()
+}
+
+// Runes returns the 2 runes that represents the emoji for the country code.
+func (cc Emoji) Runes() (rune, rune) {
+	return cc.Code.EmojiRunes()
 }
 
 // MarshalText implements encoding.TextMarshaler.

@@ -1,4 +1,5 @@
-//+build go1.10
+//go:build go1.10
+// +build go1.10
 
 package country_test
 
@@ -31,15 +32,21 @@ func TestEmoji(t *testing.T) {
 		if len(emoji) != 8 {
 			t.Errorf("%s: incorrect length %d", code, len(emoji))
 		}
+		var runes []rune
 		for {
 			r, size := utf8.DecodeRuneInString(emoji)
 			if !unicode.Is(unicode.Regional_Indicator, r) {
 				t.Errorf("%s: unexpected rune %d", code, r)
 			}
+			runes = append(runes, r)
 			emoji = emoji[size:] // next
 			if emoji == "" {
 				break
 			}
+		}
+		r0, r1 := code.EmojiRunes()
+		if r0 != runes[0] || r1 != runes[1] {
+			t.Errorf("%s: invalid runes", code)
 		}
 	}
 }
