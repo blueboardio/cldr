@@ -2,3 +2,5 @@ github.com/dolmen-go/codegen v1.0.0 h1:B/U0E1Cf5KekYF7Cx+M+CVi+Kk5juyGetb5QcXWZS
 github.com/dolmen-go/codegen v1.0.0/go.mod h1:hw2TU7hTAA0vaJ1Cow+oSW9ClG+4uBGn6zPXIXsYW5c=
 golang.org/x/text v0.3.7 h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=
 golang.org/x/text v0.3.7/go.mod h1:u+2+/6zg+i71rQMx5EYifcz6MCKuco9NR6JIITiCfzQ=
+golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e h1:FDhOuMEY4JVRztM/gsbk+IKUQ8kj74bxZrgw87eMMVc=
+golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
