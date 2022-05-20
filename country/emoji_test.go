@@ -48,5 +48,13 @@ func TestEmoji(t *testing.T) {
 		if r0 != runes[0] || r1 != runes[1] {
 			t.Errorf("%s: invalid runes", code)
 		}
+
+		emoji = code.Emoji()
+		var cc country.Emoji
+		if err := cc.Set(code.Emoji()); err != nil {
+			t.Errorf("%s: can't set from emoji: %v", code, err)
+		} else if cc.Code != code {
+			t.Errorf("%s: mismatch when restoring from emoji: %s", code, cc.Code)
+		}
 	}
 }

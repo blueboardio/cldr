@@ -129,11 +129,17 @@ func (cc Emoji) MarshalText() ([]byte, error) {
 }
 
 // UnmarshalText forbids the use of Emoji as an encoding.TextUnmarshaler.
-func (cc Emoji) UnmarshalText([]byte) error {
-	return errors.New("Emoji.UnmarshalText not implemented")
+func (cc *Emoji) UnmarshalText(b []byte) error {
+	if len(b) != 8 ||
+		b[0] != 240 || b[4] != 240 ||
+		b[1] != 159 || b[5] != 159 ||
+		b[2] != 135 || b[6] != 135 {
+		return errors.New("invalid country emoji")
+	}
+	return cc.Code.UnmarshalText([]byte{b[3] - 166 + 'A', b[7] - 166 + 'A'})
 }
 
 // Set forbids the use of Emoji as a flag.Value.
-func (cc Emoji) Set(string) error {
-	return errors.New("Emoji.Set not implemented")
+func (cc *Emoji) Set(s string) error {
+	return cc.UnmarshalText([]byte(s))
 }
