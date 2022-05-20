@@ -50,7 +50,17 @@ func (cc Code) IsValid() bool {
 }
 
 // Set implements flag.Value.
+//
+// Set accepts both "FR" and "🇫🇷" (emoji flag).
 func (cc *Code) Set(src string) error {
+	if len(src) == 8 {
+		var emoji Emoji
+		if err := emoji.Set(src); err != nil {
+			return ErrInvalidCountryCode
+		}
+		*cc = emoji.Code
+		return nil
+	}
 	if !Code(src).IsValid() {
 		return ErrInvalidCountryCode
 	}
@@ -65,7 +75,12 @@ func (cc Code) MarshalText() ([]byte, error) {
 
 // UnmarshalText implements encoding.TextUnmarshaler.
 func (cc *Code) UnmarshalText(src []byte) error {
-	return cc.Set(string(src))
+	tmp := Code(src)
+	if !tmp.IsValid() {
+		return ErrInvalidCountryCode
+	}
+	*cc = tmp
+	return nil
 }
 
 // Value implements database/sql/driver.Valuer.

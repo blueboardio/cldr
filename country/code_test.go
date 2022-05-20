@@ -95,3 +95,14 @@ func TestEmojiJSON(t *testing.T) {
 	}
 	t.Logf("%s", b)
 }
+
+func ExampleCode_Set() {
+	var cc country.Code
+	_ = cc.Set("🇫🇷")
+	fmt.Println(cc)
+	_ = cc.Set("GB")
+	fmt.Println(cc.Emoji())
+	// Output:
+	// FR
+	// 🇬🇧
+}
