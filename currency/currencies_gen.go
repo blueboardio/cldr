@@ -82,8 +82,9 @@ func main() {
 		log.Fatalf("%s: %s", cldrArchivePath, err)
 	}
 
-	cldrDecoder := &cldr.Decoder{}
 	log.Println("Loading...")
+	var cldrDecoder cldr.Decoder
+	cldrDecoder.SetDirFilter("main", "supplemental")
 	db, err := cldrDecoder.DecodeZip(zip)
 	if err != nil {
 		log.Fatalf("%s: %s", cldrArchivePath, err)
