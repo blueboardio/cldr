@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 /*
@@ -51,6 +52,7 @@ type Info struct {
 // Source: {{.file}}
 //
 // The following codes are removed:
+//
 //     QO (duplicate of UM)
 //     ZZ (unknown)
 var Countries = map[Code]*Info{
