@@ -15,8 +15,9 @@ type Info struct {
 // Source: cldr-common-40.0.zip
 //
 // The following codes are removed:
-//     QO (duplicate of UM)
-//     ZZ (unknown)
+//
+//	QO (duplicate of UM)
+//	ZZ (unknown)
 var Countries = map[Code]*Info{
 	"AC": {Code: "AC", Name: "Ascension Island", Currencies: []currency.Code{"SHP"}},
 	"AD": {Code: "AD", Name: "Andorra", Currencies: []currency.Code{"EUR"}},
