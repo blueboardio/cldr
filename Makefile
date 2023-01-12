@@ -36,4 +36,4 @@ edit-tag:
 
 # Dump changelog from Git tags
 changelog:
-	git tag -l --sort=-v:refname "--format=[%(refname:short)] %(contents)*****************************" 'v*'
+	@git tag -l --sort=-v:refname "--format=[%(refname:short)] %(contents)*****************************" 'v*'
