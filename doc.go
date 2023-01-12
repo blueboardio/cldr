@@ -1,5 +1,5 @@
 /*
-Copyright © 2018-2020 BlueBoard SAS.
+Copyright © 2023 Commerce Technologies, LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,26 @@ THE SOFTWARE.
 */
 
 /*
-Package cldr expose types and data from the Unicode CLDR.
+Package cldr expose types and data from the [Unicode CLDR].
 
 This package is empty.
 
-About sub-packages
+# About sub-packages
 
-Each sub-package exposes a string-based type called Code (country.Code, currency.Code) corresponding to an ISO code and which is the entrypoint of the API. Those types implement interfaces used for input and output from/to
-JSON (json.Marshaler, json.Unmarshaler), command line flags (flag.Value) and SQL databases (sql.Scanner, driver.Valuer).
+Each sub-package exposes a string-based type called Code
+corresponding to an ISO code and which is the entrypoint of the API. Those types implement interfaces used for input and output from/to
+JSON ([encoding/json.Marshaler], [encoding/json.Unmarshaler]), command line flags ([flag.Value]) and SQL databases ([database/sql.Scanner], [database/sql/driver.Valuer]).
 
-About data
+  - [github.com/blueboardio/cldr/v2/country.Code]
+  - [github.com/blueboardio/cldr/v2/currency.Code]
 
-Data (country names, currencies per country) comes from the Unicode Common Locale Data Repository (http://cldr.unicode.org/index). Code generators are bundled to update the data from the latest CLDR release.
+# About data
 
-License
+Data (country names, currencies per country) comes from the [Unicode Common Locale Data Repository]. Code generators are bundled to update the data from the latest CLDR release.
 
-Copyright © 2018-2020 BlueBoard SAS.
+# License
+
+Copyright © 2023 Commerce Technologies, LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +60,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-
+[Unicode CLDR]: https://cldr.unicode.org/
+[Unicode Common Locale Data Repository]: https://cldr.unicode.org/
 */
 package cldr
