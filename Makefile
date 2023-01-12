@@ -20,3 +20,20 @@ release.minor:
 # Tag a new release, increasing the patch version: x.y.z -> x.y.(z+1)
 release.patch:
 	git tag -a $$(git tag -l --sort=-v:refname 'v*' | perl -E '$$_=<>; s/\.([0-9]+)$$/".".($$1+1)/e; print')
+
+# Bump last non-pushed tag to HEAD
+bump-tag:
+	# Check if tag has already been pushed...
+	t=$$(git tag -l --sort=-v:refname 'v*' | head -n1); ! git ls-remote --exit-code --tags origin $$t
+	t=$$(git tag -l --sort=-v:refname 'v*' | head -n1); git tag -f -a -m "$$(git tag -l '--format=%(contents)' $$t)" $$t
+
+# Edit the message attached to the last tag
+edit-tag:
+	# Check if tag has already been pushed...
+	t=$$(git tag -l --sort=-v:refname 'v*' | head -n1); ! git ls-remote --exit-code --tags origin $$t
+	t=$$(git tag -l --sort=-v:refname 'v*' | head -n1); git tag -f -a $$t $$t^{}
+
+
+# Dump changelog from Git tags
+changelog:
+	git tag -l --sort=-v:refname "--format=[%(refname:short)] %(contents)*****************************" 'v*'
