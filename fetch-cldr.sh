@@ -9,7 +9,7 @@
 
 set -eou pipefail
 
-V="${1:-38.1}"
+V="${1:-42}"
 V0="$V"
 
 if [[ "$V" != *.* ]]; then
