@@ -1,3 +1,5 @@
+go ?= GO111MODULE=on go
+export go
 
 # Show this message
 help:
@@ -12,6 +14,14 @@ help:
 # Run all unit tests
 test:
 	go test -v ./...
+
+# Print the Go version corresponding to Git's HEAD
+go-version: go.mod $(shell $(go) list -f '{{$$Dir := .Dir}}{{range .GoFiles}}{{$$Dir}}/{{.}} {{end}}' ./...)
+	@TZ=UTC git log -1 '--date=format-local:%Y%m%d%H%M%S' --abbrev=12 '--pretty=tformat:v0.0.0-%cd-%h' $^
+
+# Print the Go command to upgrade a project dependency to Git's HEAD
+go-get:
+	@echo $(go) get $(shell $(go) list .)@$(shell $(MAKE) -f $(firstword $(MAKEFILE_LIST)) go-version)
 
 # Tag a new release, increasing the minor version: x.y.z -> x.(y+1).0
 release.minor:
