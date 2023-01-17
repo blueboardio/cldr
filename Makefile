@@ -17,7 +17,7 @@ test:
 
 # Print the Go version corresponding to Git's HEAD
 go-version: go.mod $(shell $(go) list -f '{{$$Dir := .Dir}}{{range .GoFiles}}{{$$Dir}}/{{.}} {{end}}' ./...)
-	@TZ=UTC git log -1 '--date=format-local:%Y%m%d%H%M%S' --abbrev=12 --pretty=tformat:$$(git describe --tags --abbrev=0 '--match=v[0-9]*')'-%cd-%h' $^
+	@TZ=UTC git log -1 '--date=format-local:%Y%m%d%H%M%S' --abbrev=12 '--pretty=tformat:v2.0.0-%cd-%h' $^
 
 # Print the Go command to upgrade a project dependency to Git's HEAD
 go-get:
