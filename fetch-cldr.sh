@@ -19,7 +19,7 @@ fi
 major="$(expr "x$V" : 'x\([0-9]*\)')"
 
 f="cldr-common-$V0.zip"
-url="http://unicode.org/Public/cldr/$V/$f"
+url="https://unicode.org/Public/cldr/$V/$f"
 echo "$url"
 
 curl -o "$f" "$url"
